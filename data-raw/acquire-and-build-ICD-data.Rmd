@@ -84,14 +84,16 @@ icd9_short_dx <-
                  short = substr(icd9_short_dx, start = 7L, stop = 1e5))
 icd9_long_sg <-
   tibble::tibble(code = substr(icd9_long_sg, start = 1L, stop = 4L),
-                 long = substr(icd9_long_sg, start = 7L, stop = 1e5))
+                 long = substr(icd9_long_sg, start = 6L, stop = 1e5))
 icd9_short_sg <-
   tibble::tibble(code = substr(icd9_short_sg, start = 1L, stop = 4L),
-                 short = substr(icd9_short_sg, start = 7L, stop = 1e5))
+                 short = substr(icd9_short_sg, start = 6L, stop = 1e5))
 
 icd9dx <- dplyr::left_join(icd9_long_dx, icd9_short_dx)
 icd9dx$code <- gsub("\\s+$", "", icd9dx$code)
+
 icd9pc <- dplyr::left_join(icd9_long_sg, icd9_short_sg)
+icd9pc$code <- gsub("\\s+$", "", icd9pc$code)
 
 icd9dx
 icd9pc
